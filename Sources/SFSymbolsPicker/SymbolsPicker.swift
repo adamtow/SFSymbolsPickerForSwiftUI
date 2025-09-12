@@ -26,7 +26,13 @@ public struct SymbolsPicker<Content: View>: View {
     ///   - autoDismiss: if true the view automatically dismisses itself when the symbols is selected.
     ///   - closeButton: a custom view for the picker close button. Set to 'Image(systemName: "xmark.circle")' by default.
     
-	public init(selection: Binding<String>, title: String, searchLabel: String = "Search...", autoDismiss: Bool = false, animate: Bool = true, @ViewBuilder closeButton: () -> Content = { Image(systemName: "xmark.circle") }) {
+	public init(selection: Binding<String>, title: String, searchLabel: String = "Search...", autoDismiss: Bool = false, animate: Bool = true, @ViewBuilder closeButton: () -> Content = {
+		if #available(iOS 26, *) {
+		Image(systemName: "xmark")
+		} else {
+		Image(systemName: "xmark.circle")
+	}
+	}) {
         self._selection = selection
 		self.vm = SymbolsPickerViewModel(title: title, searchbarLabel: searchLabel, autoDismiss: autoDismiss, animate: animate)
         self.closeButtonView = closeButton()
