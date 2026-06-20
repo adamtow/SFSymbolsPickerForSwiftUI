@@ -7,28 +7,6 @@
 
 import Foundation
 
-private extension String {
-    func fuzzyMatch(_ pattern: String) -> Bool {
-        let pattern = pattern.lowercased()
-        let string = self.lowercased()
-
-        if pattern.isEmpty { return true }
-        if string.isEmpty { return false }
-
-        var patternIndex = pattern.startIndex
-        var stringIndex = string.startIndex
-
-        while patternIndex < pattern.endIndex && stringIndex < string.endIndex {
-            if pattern[patternIndex] == string[stringIndex] {
-                patternIndex = pattern.index(after: patternIndex)
-            }
-            stringIndex = string.index(after: stringIndex)
-        }
-
-        return patternIndex == pattern.endIndex
-    }
-}
-
 // This class is responsible for loading symbols from system
 public class SymbolLoader {
     private let symbolsPerPage = 100
@@ -64,16 +42,7 @@ public class SymbolLoader {
     }
 
     public func getSymbols(named name: String) -> [String] {
-        if name.isEmpty { return [] }
-
-        // First try exact matches
-        let exactMatches = allSymbols.filter { $0.lowercased().starts(with: name.lowercased()) }
-        if !exactMatches.isEmpty {
-            return exactMatches
-        }
-
-        // Then try fuzzy matches
-        return allSymbols.filter { $0.fuzzyMatch(name) }
+        SymbolSearch.sortedMatches(in: allSymbols, matching: name)
     }
 
     public func hasMoreSymbols() -> Bool {

@@ -112,9 +112,7 @@ public class SymbolsPickerViewModel: ObservableObject {
 
             let matchingSymbols: [String]
             if self.useCustomSymbols {
-                matchingSymbols = self.customSymbols.filter { symbol in
-                    symbol.lowercased().contains(name.lowercased())
-                }
+                matchingSymbols = SymbolSearch.sortedMatches(in: self.customSymbols, matching: name)
             } else {
                 matchingSymbols = self.symbolLoader.getSymbols(named: name)
             }
