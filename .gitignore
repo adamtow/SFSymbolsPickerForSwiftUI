@@ -1,1 +1,4 @@
 xcschememanagement.plist
+.DS_Store
+.swiftpm
+.build
