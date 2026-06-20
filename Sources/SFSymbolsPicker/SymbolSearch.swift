@@ -53,30 +53,6 @@ private extension String {
             return 2
         }
 
-        if fuzzyMatch(query) {
-            return 3
-        }
-
         return nil
-    }
-
-    func fuzzyMatch(_ pattern: String) -> Bool {
-        let pattern = pattern.lowercased()
-        let string = lowercased()
-
-        if pattern.isEmpty { return true }
-        if string.isEmpty { return false }
-
-        var patternIndex = pattern.startIndex
-        var stringIndex = string.startIndex
-
-        while patternIndex < pattern.endIndex && stringIndex < string.endIndex {
-            if pattern[patternIndex] == string[stringIndex] {
-                patternIndex = pattern.index(after: patternIndex)
-            }
-            stringIndex = string.index(after: stringIndex)
-        }
-
-        return patternIndex == pattern.endIndex
     }
 }

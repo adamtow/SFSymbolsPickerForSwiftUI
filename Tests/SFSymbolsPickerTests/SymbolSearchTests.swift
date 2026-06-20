@@ -24,6 +24,8 @@ final class SymbolSearchTests: XCTestCase {
             "figure.walk",
             "figure.golf",
             "figure.golf.circle",
+            "figure.golf.circle.fill",
+            "gamecontroller.fill",
             "flag.checkered"
         ]
 
@@ -31,7 +33,8 @@ final class SymbolSearchTests: XCTestCase {
 
         XCTAssertEqual(results, [
             "figure.golf",
-            "figure.golf.circle"
+            "figure.golf.circle",
+            "figure.golf.circle.fill"
         ])
     }
 
