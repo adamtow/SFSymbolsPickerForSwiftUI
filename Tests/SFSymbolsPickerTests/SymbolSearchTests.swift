@@ -38,6 +38,23 @@ final class SymbolSearchTests: XCTestCase {
         ])
     }
 
+    func testSearchMatchesSubstringIgnoringCase() {
+        let symbols = [
+            "airplane",
+            "airplane.arrival",
+            "paperplane",
+            "figure.walk"
+        ]
+
+        let results = SymbolSearch.sortedMatches(in: symbols, matching: "Plane")
+
+        XCTAssertEqual(results, [
+            "airplane",
+            "airplane.arrival",
+            "paperplane"
+        ])
+    }
+
     func testSearchTrimsWhitespace() {
         let symbols = [
             "figure.walk",
